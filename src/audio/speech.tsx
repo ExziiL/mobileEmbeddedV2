@@ -134,6 +134,15 @@ const Speech = () => {
 		<div className="text-center">
 			<p>Microphone: {listening ? "on" : "off"}</p>
 
+			{transcript && (
+				<div className="border border-secondary mx-2 py-1">
+					Your input:
+					<p>{transcript}</p>
+				</div>
+			)}
+
+			{isCurrentlyResponding && <p className="pt-4">Robi is responding... Please be patient.</p>}
+
 			<div className="d-flex justify-content-center gap-4">
 				<Button
 					disabled={isCurrentlyResponding}
@@ -150,9 +159,6 @@ const Speech = () => {
 					Stop
 				</Button>
 			</div>
-
-			{isCurrentlyResponding && <p className="pt-4">Robi is responding... Please be patient.</p>}
-			{transcript && <p className="border border-secondary mx-2 py-1">Transcript: {transcript}</p>}
 		</div>
 	);
 };
