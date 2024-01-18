@@ -111,7 +111,10 @@ class Teleoperation extends Component {
 	}
 	render() {
 		return (
-			<div style={{ position: "fixed", bottom: "50px", right: "50px" }}>
+			<div
+				className=""
+				style={{ position: "fixed", bottom: "50px", right: "50px" }}
+			>
 				<Joystick
 					baseColor="darkGrey"
 					stickColor="grey"

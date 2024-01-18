@@ -67,12 +67,12 @@ class Connection extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div className="border">
 				<Alert
 					className="text-center m-3 nomargin nopadding  box-border"
 					variant={this.state.connected ? "success" : "danger"}
 				>
-					<h3> {this.state.connected ? "Online" : "Offline"} </h3>
+					<h3 className="pt-2"> {this.state.connected ? "Connected" : "Not Connected"} </h3>
 				</Alert>
 			</div>
 		);

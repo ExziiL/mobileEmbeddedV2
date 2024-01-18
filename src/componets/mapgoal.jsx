@@ -225,52 +225,54 @@ class MapGoal extends Component {
 	}
 	render() {
 		return (
-			<div>
-				<h3 className="mx-2">Navigation Menu</h3>
-				<p></p>
-				<ul>
-					<span style={{ width: "50px" }}></span>
-					<Button
-						className="ml-3"
-						onClick={this.newLocation}
-						variant="outline-success"
-					>
-						Add Current Location
-					</Button>
+			!this.state.connected && (
+				<div className="border w-100 mb-2">
+					<h3 className="mx-2">Navigation Menu</h3>
+					<p></p>
+					<ul>
+						<span style={{ width: "50px" }}></span>
+						<Button
+							className="ml-3"
+							onClick={this.newLocation}
+							variant="outline-success"
+						>
+							Add Current Location
+						</Button>
 
-					<Button
-						style={{ marginLeft: "50px" }}
-						className="ml-10"
-						onClick={this.cancelGoal}
-						variant="outline-danger"
-					>
-						Cancel Navigation
-					</Button>
-					{this.state.goal_list.map((goal) => (
-						<li>
-							{" "}
-							<Button
-								className="mt-3"
-								onClick={() => {
-									this.setGoal(goal.id);
-								}}
-								variant="outline-primary"
-							>
-								{goal.name}
-							</Button>{" "}
-							<Button
-								className="mt-3"
-								onClick={() => {
-									this.deleteGoal(goal.id);
-								}}
-								variant="outline-danger"
-							>
-								Delete
-							</Button>
-						</li>
-					))}
-				</ul>
-			</div>
+						<Button
+							style={{ marginLeft: "50px" }}
+							className="ml-10"
+							onClick={this.cancelGoal}
+							variant="outline-danger"
+						>
+							Cancel Navigation
+						</Button>
+						{this.state.goal_list.map((goal) => (
+							<li>
+								{" "}
+								<Button
+									className="mt-3"
+									onClick={() => {
+										this.setGoal(goal.id);
+									}}
+									variant="outline-primary"
+								>
+									{goal.name}
+								</Button>{" "}
+								<Button
+									className="mt-3"
+									onClick={() => {
+										this.deleteGoal(goal.id);
+									}}
+									variant="outline-danger"
+								>
+									Delete
+								</Button>
+							</li>
+						))}
+					</ul>
+				</div>
+			)
 		);
 	}
 }

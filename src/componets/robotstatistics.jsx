@@ -115,22 +115,24 @@ class RobotStatistics extends Component {
 
 	render() {
 		return (
-			<div>
-				<Row className="nomargin  box-border">
-					<Col className="box-border">
-						<h4 className="mt-2">Position</h4>
-						<p className="my-0">x: {this.state.x}</p>
-						<p className="my-0">y: {this.state.y}</p>
-						<p className="mt-0">z: {this.state.z}</p>
-						<p className="mt-0">Orientation: {this.state.orientation}</p>
-					</Col>
-					<Col>
-						<h4 className="mt-2">Velocities</h4>
-						<p className="mt-0">Linear: {this.state.linearVelocity}</p>
-						<p className="mt-0">Angular: {this.state.angularVelocity}</p>
-					</Col>
-				</Row>
-			</div>
+			!this.state.connected && (
+				<div className="border w-100 mb-2">
+					<Row className="nomargin">
+						<Col className="">
+							<h4 className="mt-2">Position</h4>
+							<p className="my-0">x: {this.state.x}</p>
+							<p className="my-0">y: {this.state.y}</p>
+							<p className="mt-0">z: {this.state.z}</p>
+							<p className="mt-0">Orientation: {this.state.orientation}</p>
+						</Col>
+						<Col>
+							<h4 className="mt-2">Velocity</h4>
+							<p className="mt-0">Linear: {this.state.linearVelocity}</p>
+							<p className="mt-0">Angular: {this.state.angularVelocity}</p>
+						</Col>
+					</Row>
+				</div>
+			)
 		);
 	}
 }

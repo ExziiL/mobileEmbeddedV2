@@ -100,11 +100,16 @@ class MapView extends Component {
 
 	render() {
 		return (
-			<div>
-				<h3>Navigation Map</h3>
-				<div id="nav"></div>
-				{}
-			</div>
+			!this.state.connected && (
+				<div
+					className="border w-100 mb-2"
+					style={{ minHeight: "300px" }}
+				>
+					<h3>Navigation Map</h3>
+					<div id="nav"></div>
+					{}
+				</div>
+			)
 		);
 	}
 }
