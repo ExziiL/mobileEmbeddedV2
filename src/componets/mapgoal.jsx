@@ -226,7 +226,7 @@ class MapGoal extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Navigation Menu</h3>
+				<h3 className="mx-2">Navigation Menu</h3>
 				<p></p>
 				<ul>
 					<span style={{ width: "50px" }}></span>

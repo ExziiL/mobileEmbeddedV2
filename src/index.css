@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: white; */
 }
 
 code {
@@ -20,7 +21,7 @@ main {
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-top: 0 !important;
- margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 } 
 .nopadding {
   padding : 0px !important;

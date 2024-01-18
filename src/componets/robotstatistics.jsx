@@ -117,15 +117,15 @@ class RobotStatistics extends Component {
 		return (
 			<div>
 				<Row className="nomargin  box-border">
-					<Col className=" box-border">
-						<h4 className="mt-4">Position</h4>
-						<p className="mt-0">x: {this.state.x}</p>
-						<p className="mt-0">y: {this.state.y}</p>
+					<Col className="box-border">
+						<h4 className="mt-2">Position</h4>
+						<p className="my-0">x: {this.state.x}</p>
+						<p className="my-0">y: {this.state.y}</p>
 						<p className="mt-0">z: {this.state.z}</p>
 						<p className="mt-0">Orientation: {this.state.orientation}</p>
 					</Col>
 					<Col>
-						<h4 className="mt-4">Velocities</h4>
+						<h4 className="mt-2">Velocities</h4>
 						<p className="mt-0">Linear: {this.state.linearVelocity}</p>
 						<p className="mt-0">Angular: {this.state.angularVelocity}</p>
 					</Col>
