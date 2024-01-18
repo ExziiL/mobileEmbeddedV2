@@ -1,4 +1,5 @@
 import ls from "local-storage";
+import { MapPin, Plus, Signpost } from "lucide-react";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { v4 as uuid4 } from "uuid";
@@ -227,23 +228,35 @@ class MapGoal extends Component {
 		return (
 			!this.state.connected && (
 				<div
-					className="border w-100 mx-md-2 mb-2"
+					className="border w-100 mx-md-2 mb-2 p-2"
 					style={{ minHeight: "150px" }}
 				>
-					<h3 className="mx-2">Navigation Menu</h3>
-					<div className="px-2 d-flex gap-3">
+					<h3 className="d-flex gap-3 align-items-center">
+						<Signpost
+							size={28}
+							strokeWidth={2}
+						/>
+						Navigation Options
+					</h3>
+					<div className="d-flex pt-2 gap-3">
 						<Button
 							className=""
 							onClick={this.newLocation}
 							variant="outline-success"
 						>
-							Add Current Location
+							<div className="d-flex align-items-center gap-1">
+								<Plus
+									size={20}
+									strokeWidth={1.5}
+								/>{" "}
+								Add Location
+							</div>
 						</Button>
 
 						<Button
 							className=""
 							onClick={this.cancelGoal}
-							variant="outline-danger"
+							variant="secondary"
 						>
 							Cancel Navigation
 						</Button>

@@ -5,7 +5,7 @@ import RoutesContainer from "./routes/routes-container";
 
 function App() {
 	return (
-		<div className="App">
+		<div className="App my-3 my-md-4">
 			<Header />
 			<RoutesContainer />
 			<Footer />

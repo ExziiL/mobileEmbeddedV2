@@ -1,6 +1,8 @@
+import { Mic, MicOff } from "lucide-react";
 import React from "react";
 import { Button } from "react-bootstrap";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { Bars } from "svg-loaders-react";
 
 const OPENAI_API_KEY = process.env.REACT_APP_OPEN_AI_KEY;
 
@@ -131,25 +133,38 @@ const Speech = () => {
 	};
 
 	return (
-		<div className="text-center">
-			<p>Microphone: {listening ? "on" : "off"}</p>
-
-			{transcript && (
-				<div className="border border-secondary mx-2 py-1">
-					Your input:
-					<p>{transcript}</p>
-				</div>
-			)}
-
-			{isCurrentlyResponding && <p className="pt-4">Robi is responding... Please be patient.</p>}
+		<div className="text-center mx-2">
+			<p className="d-flex gap-2 justify-content-center">
+				Microphone:
+				{listening ? (
+					<div className="d-flex gap-1 align-items-center">
+						<Mic size={18} />
+						On
+					</div>
+				) : (
+					<div className="d-flex gap-1 align-items-center">
+						<MicOff size={18} />
+						Off
+					</div>
+				)}
+			</p>
 
 			<div className="d-flex justify-content-center gap-4">
 				<Button
-					disabled={isCurrentlyResponding}
+					disabled={isCurrentlyResponding || listening}
 					onClick={startListeningWithTimeout}
 					variant="primary"
 				>
-					Start
+					<div className="d-flex gap-2">
+						{listening && (
+							<Bars
+								stroke="#fff"
+								fill="#fff"
+								style={{ width: 24, height: 24 }}
+							/>
+						)}
+						Start
+					</div>
 				</Button>
 				<Button
 					disabled={isCurrentlyResponding}
@@ -159,6 +174,30 @@ const Speech = () => {
 					Stop
 				</Button>
 			</div>
+
+			{listening && <p className="mt-3">Robi is listening...</p>}
+
+			{isCurrentlyResponding && (
+				<div className="py-4">
+					Robi is responding...{" "}
+					<div
+						className=""
+						style={{ fontSize: "13px", opacity: "0.8" }}
+					>
+						Please be patient
+					</div>
+				</div>
+			)}
+
+			{transcript && (
+				<div
+					className="border mx-auto border-secondary mx-2 py-1"
+					style={{ maxWidth: "500px" }}
+				>
+					Your input:
+					<p>{transcript}</p>
+				</div>
+			)}
 		</div>
 	);
 };

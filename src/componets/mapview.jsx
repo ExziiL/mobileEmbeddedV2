@@ -1,3 +1,4 @@
+import { Map } from "lucide-react";
 import React, { Component } from "react";
 import Config from "../data/config";
 
@@ -102,10 +103,16 @@ class MapView extends Component {
 		return (
 			!this.state.connected && (
 				<div
-					className="border w-100 mb-2"
+					className="border w-100 mb-2 p-2"
 					style={{ minHeight: "300px" }}
 				>
-					<h3>Navigation Map</h3>
+					<h3 className="d-flex gap-3 align-items-center">
+						<Map
+							size={28}
+							strokeWidth={2}
+						/>
+						Map
+					</h3>
 					<div id="nav"></div>
 					{}
 				</div>
