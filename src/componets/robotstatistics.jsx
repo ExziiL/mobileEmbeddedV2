@@ -116,7 +116,7 @@ class RobotStatistics extends Component {
 	render() {
 		return (
 			!this.state.connected && (
-				<div className="border w-100 mb-2">
+				<div className="border w-100 mb-2 mx-md-2">
 					<Row className="nomargin">
 						<Col className="">
 							<h4 className="mt-2">Position</h4>

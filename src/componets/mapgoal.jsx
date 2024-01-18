@@ -226,13 +226,14 @@ class MapGoal extends Component {
 	render() {
 		return (
 			!this.state.connected && (
-				<div className="border w-100 mb-2">
+				<div
+					className="border w-100 mx-md-2 mb-2"
+					style={{ minHeight: "150px" }}
+				>
 					<h3 className="mx-2">Navigation Menu</h3>
-					<p></p>
-					<ul>
-						<span style={{ width: "50px" }}></span>
+					<div className="px-2 d-flex gap-3">
 						<Button
-							className="ml-3"
+							className=""
 							onClick={this.newLocation}
 							variant="outline-success"
 						>
@@ -240,13 +241,15 @@ class MapGoal extends Component {
 						</Button>
 
 						<Button
-							style={{ marginLeft: "50px" }}
-							className="ml-10"
+							className=""
 							onClick={this.cancelGoal}
 							variant="outline-danger"
 						>
 							Cancel Navigation
 						</Button>
+					</div>
+
+					<ul className="nomargin px-2">
 						{this.state.goal_list.map((goal) => (
 							<li>
 								{" "}
