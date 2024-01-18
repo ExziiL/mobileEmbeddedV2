@@ -177,6 +177,16 @@ const Speech = () => {
 
 			{listening && <p className="mt-3">Robi is listening...</p>}
 
+			{transcript && (
+				<div
+					className="border mt-3 mx-auto border-secondary mx-2 py-1"
+					style={{ maxWidth: "500px" }}
+				>
+					Your input:
+					<p>{transcript}</p>
+				</div>
+			)}
+
 			{isCurrentlyResponding && (
 				<div className="py-4">
 					Robi is responding...{" "}
@@ -186,16 +196,6 @@ const Speech = () => {
 					>
 						Please be patient
 					</div>
-				</div>
-			)}
-
-			{transcript && (
-				<div
-					className="border mx-auto border-secondary mx-2 py-1"
-					style={{ maxWidth: "500px" }}
-				>
-					Your input:
-					<p>{transcript}</p>
 				</div>
 			)}
 		</div>
