@@ -116,6 +116,7 @@ const Speech = () => {
 					messages: [
 						{
 							role: "system",
+							// TODO: Den content hier so einstellen, dass er von kunden und mitarbeitern input bekommen kann und dementsprechend darauf reagiert
 							content:
 								"Your name is Robi, you are a personal assistant robot and you speak to a human. Your housing and hardware are based on the Turtlebot3. Your field of application is catering. You will be used to take plates and drink containers to the customer's table and collect the used items again.  A trailer is attached to your housing, on which customers can place and remove their plates and cups. You must be careful not to drive too fast. You are also equipped with a camera for object recognition. This camera allows you to recognise whether a plate is full or empty. If there is a filled cup on your trailer, you must drive more slowly and start and stop more carefully so that nothing leaks out. Your function as a robot is also to talk to customers and answer their questions. If you don't know a question or the customer, i.e. the user, asks you something that you can't answer, you can come up with any answer you like. However, this answer should match the customer's question and address it carefully. Always be polite to the customer and give short but precise answers. You are working for the restaurant 'Robi's Restaurant'. You are a waiter and you are responsible for the food and drinks.",
 						},
@@ -134,7 +135,7 @@ const Speech = () => {
 
 	return (
 		<div className="text-center mx-2">
-			<p className="d-flex gap-2 justify-content-center">
+			<div className="d-flex gap-2 justify-content-center">
 				Microphone:
 				{listening ? (
 					<div className="d-flex gap-1 align-items-center">
@@ -147,9 +148,9 @@ const Speech = () => {
 						Off
 					</div>
 				)}
-			</p>
+			</div>
 
-			<div className="d-flex justify-content-center gap-4">
+			<div className="d-flex justify-content-center pt-3 gap-4">
 				<Button
 					disabled={isCurrentlyResponding || listening}
 					onClick={startListeningWithTimeout}
