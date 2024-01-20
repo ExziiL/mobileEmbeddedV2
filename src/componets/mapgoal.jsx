@@ -1,5 +1,5 @@
 import ls from "local-storage";
-import { MapPin, Plus, Signpost } from "lucide-react";
+import { MapPin, Play, Signpost } from "lucide-react";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { v4 as uuid4 } from "uuid";
@@ -12,6 +12,7 @@ class MapGoal extends Component {
 		goal_list: [],
 		goalid_list: [],
 	};
+
 	componentDidMount() {
 		this.init_connection();
 		let goals = ls.get("goal_list");
@@ -52,6 +53,7 @@ class MapGoal extends Component {
 		this.state.ros = new window.ROSLIB.Ros();
 		console.log(this.state.ros);
 	}
+
 	reconnect() {
 		if (this.state.connected === false) {
 			console.log(this.state.connected);
@@ -74,6 +76,7 @@ class MapGoal extends Component {
 			}
 		}
 	}
+
 	init_connection() {
 		window.onerror = function (e) {
 			console.log("error handled", e.type);
@@ -224,6 +227,7 @@ class MapGoal extends Component {
 
 		this.setState();
 	}
+
 	render() {
 		return (
 			!this.state.connected && (
@@ -238,23 +242,62 @@ class MapGoal extends Component {
 						/>
 						Navigation Options
 					</h3>
-					<div className="d-flex pt-2 gap-3">
+					<div className="d-flex flex-column w-auto pt-2 gap-3">
 						<Button
-							className=""
+							className=" w-50"
 							onClick={this.newLocation}
 							variant="outline-success"
 						>
-							<div className="d-flex align-items-center gap-1">
-								<Plus
+							<div className="d-flex align-items-center gap-2">
+								<Play
+									size={20}
+									strokeWidth={1.5}
+								/>
+								1. Table
+							</div>
+						</Button>
+						<Button
+							className=" w-50"
+							onClick={this.newLocation}
+							variant="outline-success"
+						>
+							<div className="d-flex align-items-center gap-2">
+								<Play
+									size={20}
+									strokeWidth={1.5}
+								/>
+								2. Table
+							</div>
+						</Button>
+						<Button
+							className=" w-50"
+							onClick={this.newLocation}
+							variant="outline-success"
+						>
+							<div className="d-flex align-items-center gap-2">
+								<Play
+									size={20}
+									strokeWidth={1.5}
+								/>
+								3. Table
+							</div>
+						</Button>
+						<Button
+							className="w-50"
+							onClick={this.newLocation}
+							variant="outline-success"
+						>
+							<div className="d-flex align-items-center gap-2">
+								<Play
 									size={20}
 									strokeWidth={1.5}
 								/>{" "}
-								Add Location
+								4. Table
 							</div>
 						</Button>
 
 						<Button
-							className=""
+							className="w-50"
 							onClick={this.cancelGoal}
 							variant="secondary"
 						>

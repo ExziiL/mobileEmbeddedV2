@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Connection from "../componets/connection";
-import NavigationMenu from "../componets/mapgoal";
+import NavigationOptions from "../componets/mapgoal";
 import Map from "../componets/mapview";
 import RobotStatistics from "../componets/robotstatistics";
 import Teleoperation from "../componets/teleoperation";
@@ -19,7 +19,7 @@ class Home extends Component {
 					</div>
 					<div className="d-md-flex">
 						<Map />
-						<NavigationMenu />
+						<NavigationOptions />
 					</div>
 				</div>
 				<Teleoperation />
