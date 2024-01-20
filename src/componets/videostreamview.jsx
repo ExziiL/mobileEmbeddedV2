@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import * as mobilenet from "@tensorflow-models/mobilenet";
+import * as tf from "@tensorflow/tfjs";
 import Config from '../data/config';
 
 
@@ -7,6 +9,8 @@ class VideoStreamView extends Component {
         connected: false,
         ros: null,
         imageString: null,
+        model: null,
+        detected: false,
     }
 
     constructor() {
@@ -74,6 +78,24 @@ class VideoStreamView extends Component {
     }
     componentDidMount() {
         this.init_connection();
+        tf.ready().then(() => {
+            this.loadModel();
+        });
+        // Call predictionFunction every second
+        setInterval(() => {
+            this.predictionFunction();
+        }, 1000);
+    }
+
+    async loadModel() {
+        try {
+            const mobilnet = await mobilenet.load();
+            this.setState({ model: mobilnet })
+            console.log("setloadedModel");
+        } catch (err) {
+            console.log(err);
+            console.log("failed load model");
+        }
     }
 
 
@@ -94,19 +116,62 @@ class VideoStreamView extends Component {
     }
 
     getData(msg) {
-        //let TYPED_ARRAY = new Uint8Array(data);
-        //let uint8Array = new TextEncoder("utf-8").encode(data);
-        //const STRING_CHAR = String.fromCharCode.apply(null, uint8Array.buffer);
+
         return msg.data;
+    }
+
+    async predictionFunction() {
+        if (this.state.imageString != null) {
+            const imageTensor = this.imageToTensor(this.base64ToArrayBuffer(this.state.imageString));
+            const predictions = await model.classify(imageTensor);
+
+            if (predictions.length > 0) {
+                // setPredictionData(predictions);
+                console.log(predictions);
+                for (let n = 0; n < predictions.length; n++) {
+                    // Check scores
+                    console.log(n);
+                    if (predictions[n].score > 0.8) {
+                        console.log("detected");
+                        this.setState({ detected: true });
+                    }
+                }
+            }
+        }
+    }
 
 
-        // let uint8Array = new TextEncoder("utf-8").encode(data);
-        // return URL.createObjectURL(new Blob([uint8Array.buffer], { type: 'image/png' } /* (1) */));
+
+    base64ToArrayBuffer(base64) {
+        var binaryString = atob(base64);
+        var bytes = new Uint8Array(binaryString.length);
+        for (var i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    imageToTensor(rawImageData) {
+        const TO_UINT8ARRAY = true
+        const { width, height, data } = jpeg.decode(rawImageData, TO_UINT8ARRAY)
+        // Drop the alpha channel info for mobilenet
+        const buffer = new Uint8Array(width * height * 3)
+        let offset = 0 // offset into original data
+        for (let i = 0; i < buffer.length; i += 3) {
+            buffer[i] = data[offset]
+            buffer[i + 1] = data[offset + 1]
+            buffer[i + 2] = data[offset + 2]
+
+            offset += 4
+        }
+
+        return tf.tensor3d(buffer, [height, width, 3])
     }
 
     render() {
         return (<div>
             <h3>Robot Camera</h3>
+            {this.state.detected && <h4>Detected</h4>}
             <div id='mjpeg'>
                 <img id="my_image" src={`data:image/png;base64,${this.state.imageString}`} style={{ height: '100%', width: '100%', objectfit: 'contain' }} alt="loading..." ></img>
             </div>
