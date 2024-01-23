@@ -77,14 +77,14 @@ class Teleoperation extends Component {
 		});
 		var twist = new window.ROSLIB.Message({
 			linear: {
-				x: event.y / 50,
+				x: -event.y / 50,
 				y: 0,
 				z: 0,
 			},
 			angular: {
 				x: 0,
 				y: 0,
-				z: event.x === 0 ? 0 : -event.x / 70,
+				z: event.x === 0 ? 0 :event.x / 70,
 			},
 		});
 		cmd_vel.publish(twist);

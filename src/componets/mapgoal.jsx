@@ -1,5 +1,7 @@
 import ls from "local-storage";
-import { MapPin, Play, Signpost } from "lucide-react";
+// eslint-disable-next-line
+import {MapPin} from "lucide-react"
+import { Play, Signpost } from "lucide-react";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { v4 as uuid4 } from "uuid";
