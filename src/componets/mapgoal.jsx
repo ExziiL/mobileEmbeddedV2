@@ -1,11 +1,13 @@
 import ls from "local-storage";
 // eslint-disable-next-line
-import {MapPin} from "lucide-react"
+import { MapPin } from "lucide-react"
 import { Play, Signpost } from "lucide-react";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { v4 as uuid4 } from "uuid";
 import Config from "../data/config";
+import paths from "../data/paths";
+
 class MapGoal extends Component {
 	state = {
 		connected: false,
@@ -26,9 +28,9 @@ class MapGoal extends Component {
 					if (typeof test != "undefined") {
 						newGoals.push(goals[i]);
 					}
-				} catch (error) {}
+				} catch (error) { }
 			}
-		} catch (error) {}
+		} catch (error) { }
 		if (newGoals.length === 0) {
 			ls.set("goal_list", []);
 			ls.set("goalid_list", []);
@@ -53,6 +55,7 @@ class MapGoal extends Component {
 		this.newLocation = this.newLocation.bind(this);
 		this.addNewLocation = this.addNewLocation.bind(this);
 		this.state.ros = new window.ROSLIB.Ros();
+		this.driveRecordedPath = this.driveRecordedPath.bind(this);
 		console.log(this.state.ros);
 	}
 
@@ -139,11 +142,11 @@ class MapGoal extends Component {
 						delete this.state.goal_list[i];
 						break;
 					}
-				} catch (error) {}
+				} catch (error) { }
 			}
 			this.setState({ goal_list: this.state.goal_list });
 			this.updateStorage();
-		} catch (error) {}
+		} catch (error) { }
 	}
 
 	newLocation() {
@@ -230,9 +233,46 @@ class MapGoal extends Component {
 		this.setState();
 	}
 
+
+	async driveRecordedPath(id) {
+		const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+		let path = paths['path' + id];
+		let twists = [];
+		let reverseTwists = [];
+
+
+		path.forEach(coordinate => {
+			let message = {
+				linear: coordinate.linear,
+				angular: coordinate.angular
+			}
+			twists.push(new window.ROSLIB.Message(message));
+
+			let reverseMessage = JSON.parse(JSON.stringify(message))
+			reverseMessage.linear.x = -message.linear.x;
+			reverseMessage.angular.z = -message.angular.z
+			reverseTwists.push(new window.ROSLIB.Message(reverseMessage));
+		});
+
+		twists = twists.concat(reverseTwists);
+		// for (let i=reverseTwists.length; i>=0; i--) {
+		// 	twists.push(reverseTwists.pop());
+		// }
+
+		for (const twist of twists) {
+			let cmd_vel = new window.ROSLIB.Topic({
+				ros: this.state.ros,
+				name: Config.CMD_VEL_TOPIC,
+				messageType: "geometry_msgs/Twist",
+			});
+			cmd_vel.publish(twist);
+			await sleep(200); // delay between 400 and 500 ms
+		}
+	}
+
 	render() {
 		return (
-			!this.state.connected && (
+			this.state.connected && (
 				<div
 					className="border w-100 mx-md-2 mb-2 p-2"
 					style={{ minHeight: "150px" }}
@@ -247,7 +287,7 @@ class MapGoal extends Component {
 					<div className="d-flex flex-column w-auto pt-2 gap-3">
 						<Button
 							className=" w-50"
-							onClick={this.newLocation}
+							onClick={() => this.driveRecordedPath(1)}
 							variant="outline-success"
 						>
 							<div className="d-flex align-items-center gap-2">
@@ -260,7 +300,7 @@ class MapGoal extends Component {
 						</Button>
 						<Button
 							className=" w-50"
-							onClick={this.newLocation}
+							onClick={() => this.driveRecordedPath(2)}
 							variant="outline-success"
 						>
 							<div className="d-flex align-items-center gap-2">
@@ -297,41 +337,7 @@ class MapGoal extends Component {
 								4. Table
 							</div>
 						</Button>
-
-						<Button
-							className="w-50"
-							onClick={this.cancelGoal}
-							variant="secondary"
-						>
-							Cancel Navigation
-						</Button>
-					</div>
-
-					<ul className="nomargin px-2">
-						{this.state.goal_list.map((goal) => (
-							<li>
-								{" "}
-								<Button
-									className="mt-3"
-									onClick={() => {
-										this.setGoal(goal.id);
-									}}
-									variant="outline-primary"
-								>
-									{goal.name}
-								</Button>{" "}
-								<Button
-									className="mt-3"
-									onClick={() => {
-										this.deleteGoal(goal.id);
-									}}
-									variant="outline-danger"
-								>
-									Delete
-								</Button>
-							</li>
-						))}
-					</ul>
+					</div>đ
 				</div>
 			)
 		);

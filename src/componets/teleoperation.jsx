@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { Joystick } from "react-joystick-component";
 import Config from "../data/config";
 
+import { Button } from "react-bootstrap";
+
 class Teleoperation extends Component {
 	state = {
 		connected: false,
 		ros: null,
+		recordedData: [],
+		isRecording: false
 	};
 
 	constructor() {
@@ -13,6 +17,8 @@ class Teleoperation extends Component {
 		this.handleMove = this.handleMove.bind(this);
 		this.handleStop = this.handleStop.bind(this);
 		this.state.ros = new window.ROSLIB.Ros();
+		this.record = this.record.bind(this);
+		this.stopRecord = this.stopRecord.bind(this);
 		console.log(this.state.ros);
 	}
 	reconnect() {
@@ -84,9 +90,14 @@ class Teleoperation extends Component {
 			angular: {
 				x: 0,
 				y: 0,
-				z: event.x === 0 ? 0 :event.x / 70,
+				z: event.x === 0 ? 0 : -event.x / 70,
 			},
 		});
+		if (this.state.isRecording) {
+			var tempRecordedData = this.state.recordedData;
+			tempRecordedData.push(twist);
+			this.setState({ recordedData: tempRecordedData })
+		}
 		cmd_vel.publish(twist);
 	}
 	handleStop() {
@@ -107,7 +118,24 @@ class Teleoperation extends Component {
 				z: 0,
 			},
 		});
+		if (this.state.isRecording) {
+			var tempRecordedData = this.state.recordedData;
+			tempRecordedData.push(twist);
+			this.setState({ recordedData: tempRecordedData })
+		}
 		cmd_vel.publish(twist);
+	}
+
+	record() {
+		this.setState({ isRecording: true,
+						recordedData : [] });
+	}
+
+	stopRecord() {
+		this.setState({ isRecording: false });
+		if(this.state.recordedData.length > 0){
+			console.log(this.state.recordedData);
+		}
 	}
 	render() {
 		return (
@@ -115,6 +143,8 @@ class Teleoperation extends Component {
 				className=""
 				style={{ position: "fixed", bottom: "50px", right: "50px" }}
 			>
+				<Button onClick={this.record}>Record</Button>
+				<Button onClick={this.stopRecord}>Stop Recording</Button>
 				<Joystick
 					baseColor="darkGrey"
 					stickColor="grey"
