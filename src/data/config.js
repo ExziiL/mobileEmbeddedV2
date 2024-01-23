@@ -1,5 +1,5 @@
 const Config = {
-	ROSBRIDGE_SERVER_IP: "192.168.137.97",
+	ROSBRIDGE_SERVER_IP: "192.168.137.193",
 	ROSBRIDGE_SERVER_PORT: "9090",
 	CMD_VEL_TOPIC: "/cmd_vel",
 	GOAL_TOPIC: "/move_base_simple/goal",

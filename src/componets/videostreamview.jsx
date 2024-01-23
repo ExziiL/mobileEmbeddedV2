@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as tf from "@tensorflow/tfjs";
 import Config from '../data/config';
+import * as jpeg from 'jpeg-js'
 
 
 class VideoStreamView extends Component {
@@ -84,7 +85,7 @@ class VideoStreamView extends Component {
         // Call predictionFunction every second
         setInterval(() => {
             this.predictionFunction();
-        }, 1000);
+        }, 2000);
     }
 
     async loadModel() {
@@ -107,7 +108,7 @@ class VideoStreamView extends Component {
         });
 
         pose.subscribe((msg) => {
-            console.log(msg);
+            //console.log(msg);
             this.setState({
                 imageString: this.getData(msg)
             })
@@ -121,21 +122,30 @@ class VideoStreamView extends Component {
     }
 
     async predictionFunction() {
-        if (this.state.imageString != null) {
+        if (this.state.imageString != null && this.state.model != null) {
             const imageTensor = this.imageToTensor(this.base64ToArrayBuffer(this.state.imageString));
-            const predictions = await model.classify(imageTensor);
-
+            const predictions = await this.state.model.classify(imageTensor);
+            let found = false;
             if (predictions.length > 0) {
                 // setPredictionData(predictions);
-                console.log(predictions);
+                //console.log(predictions);
                 for (let n = 0; n < predictions.length; n++) {
                     // Check scores
-                    console.log(n);
-                    if (predictions[n].score > 0.8) {
-                        console.log("detected");
-                        this.setState({ detected: true });
+                    //console.log(n);
+                    if (predictions[n].probability > 0.2) {
+                        if (predictions[n].className.match(/mug|cup/))
+                        {   
+                            console.log("detected");
+                            found = true;
+                          //  this.setState({ detected: true });
+                            document.querySelector('#mjpeg').style.border = "10px solid green";
+                        }
                     }
                 }
+            }
+            if(!found){
+                document.querySelector('#mjpeg').style.border = "10px solid red";
+              //  this.setState({ detected: false });
             }
         }
     }

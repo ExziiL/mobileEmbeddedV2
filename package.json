@@ -20,6 +20,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
+    "jpeg-js": "^0.4.4",
     "local-storage": "^2.0.0",
     "lucide-react": "^0.312.0",
     "node-microphone": "^0.1.6",
@@ -35,6 +36,7 @@
     "svg-loaders": "^0.2.0",
     "svg-loaders-react": "^2.2.1",
     "three": "^0.129.0",
+    "typescript": "^5.3.3",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },
