@@ -28,7 +28,8 @@
     "svg-loaders-react": "^2.2.1",
     "three": "^0.129.0",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "words-to-numbers": "^1.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
