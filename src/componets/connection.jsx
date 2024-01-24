@@ -10,56 +10,56 @@ class Connection extends Component {
 	constructor() {
 		super();
 		this.state.ros = new window.ROSLIB.Ros();
-		console.log(this.state.ros);
+		// console.log(this.state.ros);
 	}
 	reconnect() {
 		if (this.state.connected === false) {
-			console.log(this.state.connected);
-			console.log("Reconnecting");
+			// console.log(this.state.connected);
+			// console.log("Reconnecting");
 			try {
 				try {
 					try {
 						this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-							console.log("Error caught by connect: ");
-							console.log(e);
+							// console.log("Error caught by connect: ");
+							// console.log(e);
 						});
 					} catch (error) {
-						console.log("Connection problem");
+						// console.log("Connection problem");
 					}
 				} catch (error) {
-					console.log("Timesout Error");
+					// console.log("Timesout Error");
 				}
 			} catch (error) {
-				console.log("Error");
+				// console.log("Error");
 			}
 		}
 	}
 	init_connection() {
 		window.onerror = function (e) {
-			console.log("error handled", e.type);
-			console.log("error handled", e);
+			// console.log("error handled", e.type);
+			// console.log("error handled", e);
 		};
 
 		setInterval(() => {
 			this.reconnect();
 		}, 5000);
 		this.state.ros.on("connection", () => {
-			console.log("Connection established successfully");
+			// console.log("Connection established successfully");
 			this.setState({ connected: true });
 		});
 		this.state.ros.on("close", (error) => {
-			console.log(error);
-			console.log("Connection closed");
+			// console.log(error);
+			// console.log("Connection closed");
 			this.setState({ connected: false });
 		});
 
 		try {
 			this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-				console.log("Error caught by connect: ");
-				console.log(e);
+				// console.log("Error caught by connect: ");
+				// console.log(e);
 			});
 		} catch (error) {
-			console.log("Connection problem");
+			// console.log("Connection problem");
 		}
 	}
 	componentDidMount() {

@@ -9,7 +9,7 @@ class Teleoperation extends Component {
 		connected: false,
 		ros: null,
 		recordedData: [],
-		isRecording: false
+		isRecording: false,
 	};
 
 	constructor() {
@@ -19,56 +19,56 @@ class Teleoperation extends Component {
 		this.state.ros = new window.ROSLIB.Ros();
 		this.record = this.record.bind(this);
 		this.stopRecord = this.stopRecord.bind(this);
-		console.log(this.state.ros);
+		// console.log(this.state.ros);
 	}
 	reconnect() {
 		if (this.state.connected === false) {
-			console.log(this.state.connected);
-			console.log("Reconnecting");
+			// console.log(this.state.connected);
+			// console.log("Reconnecting");
 			try {
 				try {
 					try {
 						this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-							console.log("Error caught by connect: ");
-							console.log(e);
+							// console.log("Error caught by connect: ");
+							// console.log(e);
 						});
 					} catch (error) {
-						console.log("Connection problem");
+						// console.log("Connection problem");
 					}
 				} catch (error) {
-					console.log("Timesout Error");
+					// console.log("Timesout Error");
 				}
 			} catch (error) {
-				console.log("Error");
+				// console.log("Error");
 			}
 		}
 	}
 	init_connection() {
 		window.onerror = function (e) {
-			console.log("error handled", e.type);
-			console.log("error handled", e);
+			// console.log("error handled", e.type);
+			// console.log("error handled", e);
 		};
 
 		setInterval(() => {
 			this.reconnect();
 		}, 5000);
 		this.state.ros.on("connection", () => {
-			console.log("[Teleoperation]Connection established successfully");
+			// console.log("[Teleoperation]Connection established successfully");
 			this.setState({ connected: true });
 		});
 		this.state.ros.on("close", (error) => {
-			console.log(error);
-			console.log("Connection closed");
+			// console.log(error);
+			// console.log("Connection closed");
 			this.setState({ connected: false });
 		});
 
 		try {
 			this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-				console.log("Error caught by connect: ");
-				console.log(e);
+				// console.log("Error caught by connect: ");
+				// console.log(e);
 			});
 		} catch (error) {
-			console.log("Connection problem");
+			// console.log("Connection problem");
 		}
 	}
 	componentDidMount() {
@@ -96,7 +96,7 @@ class Teleoperation extends Component {
 		if (this.state.isRecording) {
 			var tempRecordedData = this.state.recordedData;
 			tempRecordedData.push(twist);
-			this.setState({ recordedData: tempRecordedData })
+			this.setState({ recordedData: tempRecordedData });
 		}
 		cmd_vel.publish(twist);
 	}
@@ -121,20 +121,19 @@ class Teleoperation extends Component {
 		if (this.state.isRecording) {
 			var tempRecordedData = this.state.recordedData;
 			tempRecordedData.push(twist);
-			this.setState({ recordedData: tempRecordedData })
+			this.setState({ recordedData: tempRecordedData });
 		}
 		cmd_vel.publish(twist);
 	}
 
 	record() {
-		this.setState({ isRecording: true,
-						recordedData : [] });
+		this.setState({ isRecording: true, recordedData: [] });
 	}
 
 	stopRecord() {
 		this.setState({ isRecording: false });
-		if(this.state.recordedData.length > 0){
-			console.log(this.state.recordedData);
+		if (this.state.recordedData.length > 0) {
+			// console.log(this.state.recordedData);
 		}
 	}
 	render() {

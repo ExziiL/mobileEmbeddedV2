@@ -60,31 +60,31 @@ class MapGoal extends Component {
 
 	reconnect() {
 		if (this.state.connected === false) {
-			console.log(this.state.connected);
-			console.log("Reconnecting");
+			// console.log(this.state.connected);
+			// console.log("Reconnecting");
 			try {
 				try {
 					try {
 						this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-							console.log("Error caught by connect: ");
-							console.log(e);
+							// console.log("Error caught by connect: ");
+							// console.log(e);
 						});
 					} catch (error) {
-						console.log("Connection problem");
+						// console.log("Connection problem");
 					}
 				} catch (error) {
-					console.log("Timesout Error");
+					// console.log("Timesout Error");
 				}
 			} catch (error) {
-				console.log("Error");
+				// console.log("Error");
 			}
 		}
 	}
 
 	init_connection() {
 		window.onerror = function (e) {
-			console.log("error handled", e.type);
-			console.log("error handled", e);
+			// console.log("error handled", e.type);
+			// console.log("error handled", e);
 		};
 
 		setInterval(() => {
@@ -92,22 +92,22 @@ class MapGoal extends Component {
 		}, 5000);
 
 		this.state.ros.on("connection", () => {
-			console.log("[Map Goal]Connection established successfully");
+			// console.log("[Map Goal]Connection established successfully");
 			this.setState({ connected: true });
 		});
 		this.state.ros.on("close", (error) => {
-			console.log(error);
-			console.log("Connection closed");
+			// console.log(error);
+			// console.log("Connection closed");
 			this.setState({ connected: false });
 		});
 
 		try {
 			this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-				console.log("Error caught by connect: ");
-				console.log(e);
+				// console.log("Error caught by connect: ");
+				// console.log(e);
 			});
 		} catch (error) {
-			console.log("Connection problem");
+			// console.log("Connection problem");
 		}
 	}
 
@@ -122,7 +122,7 @@ class MapGoal extends Component {
 		if (goal_data === null) {
 			return 0;
 		}
-		console.log("Navigating");
+		// console.log("Navigating");
 		var goal = new window.ROSLIB.Topic({
 			ros: this.state.ros,
 			name: Config.GOAL_TOPIC,
@@ -137,7 +137,7 @@ class MapGoal extends Component {
 			for (var i = 0; i < this.state.goal_list.length; i++) {
 				try {
 					if (this.state.goal_list[i].id === id) {
-						console.log(i);
+						// console.log(i);
 						delete this.state.goal_list[i];
 						break;
 					}
@@ -217,15 +217,15 @@ class MapGoal extends Component {
 					},
 				};
 				if (this.state.goalid_list.includes(id) === false) {
-					console.log(this.state.goalid_list.includes(id));
+					// console.log(this.state.goalid_list.includes(id));
 					this.state.goal_list.push(newgoal);
 					this.state.goalid_list.push(id);
 					this.setState({ goal_list: this.state.goal_list });
 					this.updateStorage();
 				}
 			}
-			console.log(this.state.goal_list);
-			console.log(msg);
+			// console.log(this.state.goal_list);
+			// console.log(msg);
 			odom.unsubscribe();
 		});
 

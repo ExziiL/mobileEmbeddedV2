@@ -19,34 +19,34 @@ class RobotStatistics extends Component {
 		super();
 		this.getStatistics = this.getStatistics.bind(this);
 		this.state.ros = new window.ROSLIB.Ros();
-		console.log(this.state.ros);
+		// console.log(this.state.ros);
 	}
 	reconnect() {
 		if (this.state.connected === false) {
-			console.log(this.state.connected);
-			console.log("Reconnecting");
+			// console.log(this.state.connected);
+			// console.log("Reconnecting");
 			try {
 				try {
 					try {
 						this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-							console.log("Error caught by connect: ");
-							console.log(e);
+							// console.log("Error caught by connect: ");
+							// console.log(e);
 						});
 					} catch (error) {
-						console.log("Connection problem");
+						// console.log("Connection problem");
 					}
 				} catch (error) {
-					console.log("Timesout Error");
+					// console.log("Timesout Error");
 				}
 			} catch (error) {
-				console.log("Error");
+				// console.log("Error");
 			}
 		}
 	}
 	init_connection() {
 		window.onerror = function (e) {
-			console.log("error handled", e.type);
-			console.log("error handled", e);
+			// console.log("error handled", e.type);
+			// console.log("error handled", e);
 		};
 
 		setInterval(() => {
@@ -54,23 +54,23 @@ class RobotStatistics extends Component {
 		}, 5000);
 
 		this.state.ros.on("connection", () => {
-			console.log("[Statitics]]Connection established successfully");
+			// console.log("[Statitics]]Connection established successfully");
 			this.setState({ connected: true });
 			this.getStatistics();
 		});
 		this.state.ros.on("close", (error) => {
-			console.log(error);
-			console.log("Connection closed");
+			// console.log(error);
+			// console.log("Connection closed");
 			this.setState({ connected: false });
 		});
 
 		try {
 			this.state.ros.connect(`ws://${Config.ROSBRIDGE_SERVER_IP}:${Config.ROSBRIDGE_SERVER_PORT}`).onerror(function (e) {
-				console.log("Error caught by connect: ");
-				console.log(e);
+				// console.log("Error caught by connect: ");
+				// console.log(e);
 			});
 		} catch (error) {
-			console.log("Connection problem");
+			// console.log("Connection problem");
 		}
 	}
 	componentDidMount() {
@@ -78,7 +78,7 @@ class RobotStatistics extends Component {
 	}
 
 	getStatistics() {
-		console.log("getting Statistics");
+		// console.log("getting Statistics");
 		var pose = new window.ROSLIB.Topic({
 			ros: this.state.ros,
 			name: "/amcl_pose",
