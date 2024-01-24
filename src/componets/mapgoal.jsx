@@ -1,7 +1,6 @@
 import ls from "local-storage";
 // eslint-disable-next-line
-import { MapPin } from "lucide-react"
-import { Play, Signpost } from "lucide-react";
+import { MapPin, Play, Signpost } from "lucide-react";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { v4 as uuid4 } from "uuid";
@@ -28,9 +27,9 @@ class MapGoal extends Component {
 					if (typeof test != "undefined") {
 						newGoals.push(goals[i]);
 					}
-				} catch (error) { }
+				} catch (error) {}
 			}
-		} catch (error) { }
+		} catch (error) {}
 		if (newGoals.length === 0) {
 			ls.set("goal_list", []);
 			ls.set("goalid_list", []);
@@ -142,11 +141,11 @@ class MapGoal extends Component {
 						delete this.state.goal_list[i];
 						break;
 					}
-				} catch (error) { }
+				} catch (error) {}
 			}
 			this.setState({ goal_list: this.state.goal_list });
 			this.updateStorage();
-		} catch (error) { }
+		} catch (error) {}
 	}
 
 	newLocation() {
@@ -233,24 +232,22 @@ class MapGoal extends Component {
 		this.setState();
 	}
 
-
 	async driveRecordedPath(id) {
-		const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-		let path = paths['path' + id];
+		const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+		let path = paths["path" + id];
 		let twists = [];
 		let reverseTwists = [];
 
-
-		path.forEach(coordinate => {
+		path.forEach((coordinate) => {
 			let message = {
 				linear: coordinate.linear,
-				angular: coordinate.angular
-			}
+				angular: coordinate.angular,
+			};
 			twists.push(new window.ROSLIB.Message(message));
 
-			let reverseMessage = JSON.parse(JSON.stringify(message))
+			let reverseMessage = JSON.parse(JSON.stringify(message));
 			reverseMessage.linear.x = -message.linear.x;
-			reverseMessage.angular.z = -message.angular.z
+			reverseMessage.angular.z = -message.angular.z;
 			reverseTwists.push(new window.ROSLIB.Message(reverseMessage));
 		});
 
@@ -337,7 +334,8 @@ class MapGoal extends Component {
 								4. Table
 							</div>
 						</Button>
-					</div>đ
+					</div>
+					đ
 				</div>
 			)
 		);
