@@ -270,7 +270,7 @@ class MapGoal extends Component {
 
 		}
 
-		//twists = twists.concat(reverseTwists.reverse());
+		twists = twists.concat(reverseTwists.reverse());
 		/* for (let i=reverseTwists.length; i>=0; i--) {
 			twists.push(reverseTwists.pop());
 		} */

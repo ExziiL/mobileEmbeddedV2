@@ -81,6 +81,8 @@ class Teleoperation extends Component {
 			name: Config.CMD_VEL_TOPIC,
 			messageType: "geometry_msgs/Twist",
 		});
+
+		console.log("Event :" + event.x + ", " + (-5 < event.x && event.x < 5));
 		var twist = new window.ROSLIB.Message({
 			linear: {
 				x: -event.y / 50,
@@ -90,9 +92,12 @@ class Teleoperation extends Component {
 			angular: {
 				x: 0,
 				y: 0,
-				z: event.x === 0 ? 0 : -event.x / 70,
+				//z:  event.x === 0  ? 0 : -event.x / 70,
+				z:  -10 < event.x && event.x < 10  ? 0 : -event.x / 70
 			},
 		});
+
+		console.log(twist);
 		if (this.state.isRecording) {
 			var tempRecordedData = this.state.recordedData;
 
