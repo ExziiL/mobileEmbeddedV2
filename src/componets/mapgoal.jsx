@@ -239,35 +239,62 @@ class MapGoal extends Component {
 		let path = paths['path' + id];
 		let twists = [];
 		let reverseTwists = [];
+		let cmd_vel = new window.ROSLIB.Topic({
+			ros: this.state.ros,
+			name: Config.CMD_VEL_TOPIC,
+			messageType: "geometry_msgs/Twist",
+		});
 
+		for (var i = 0; i < path.length; i++) {
+			let coordinate = path[i];
 
-		path.forEach(coordinate => {
 			let message = {
-				linear: coordinate.linear,
-				angular: coordinate.angular
+				linear: coordinate.twist.linear,
+				angular: coordinate.twist.angular
 			}
-			twists.push(new window.ROSLIB.Message(message));
+			let deltaTime = 0;
+			if (i === path.length - 1) {
+				deltaTime = 200;
+			} else {
+				deltaTime = path[i + 1].time - coordinate.time;
+			}
+
+
+
+			twists.push({ message: new window.ROSLIB.Message(message), time: deltaTime });
 
 			let reverseMessage = JSON.parse(JSON.stringify(message))
 			reverseMessage.linear.x = -message.linear.x;
 			reverseMessage.angular.z = -message.angular.z
-			reverseTwists.push(new window.ROSLIB.Message(reverseMessage));
-		});
+			reverseTwists.push({ message: new window.ROSLIB.Message(reverseMessage), time: deltaTime });
 
-		twists = twists.concat(reverseTwists);
-		// for (let i=reverseTwists.length; i>=0; i--) {
-		// 	twists.push(reverseTwists.pop());
-		// }
+		}
+
+		//twists = twists.concat(reverseTwists.reverse());
+		/* for (let i=reverseTwists.length; i>=0; i--) {
+			twists.push(reverseTwists.pop());
+		} */
 
 		for (const twist of twists) {
-			let cmd_vel = new window.ROSLIB.Topic({
-				ros: this.state.ros,
-				name: Config.CMD_VEL_TOPIC,
-				messageType: "geometry_msgs/Twist",
-			});
-			cmd_vel.publish(twist);
-			await sleep(200); // delay between 400 and 500 ms
+
+			cmd_vel.publish(twist.message);
+			await sleep(twist.time); // delay between 400 and 500 ms
 		}
+
+		var stop = new window.ROSLIB.Message({
+			linear: {
+				x: 0,
+				y: 0,
+				z: 0,
+			},
+			angular: {
+				x: 0,
+				y: 0,
+				z: 0,
+			},
+		});
+
+		cmd_vel.publish(stop);
 	}
 
 	render() {
@@ -313,7 +340,7 @@ class MapGoal extends Component {
 						</Button>
 						<Button
 							className=" w-50"
-							onClick={this.newLocation}
+							onClick={() => this.driveRecordedPath(3)}
 							variant="outline-success"
 						>
 							<div className="d-flex align-items-center gap-2">
@@ -326,7 +353,7 @@ class MapGoal extends Component {
 						</Button>
 						<Button
 							className="w-50"
-							onClick={this.newLocation}
+							onClick={() => this.driveRecordedPath(4)}
 							variant="outline-success"
 						>
 							<div className="d-flex align-items-center gap-2">
