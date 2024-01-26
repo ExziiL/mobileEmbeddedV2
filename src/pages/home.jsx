@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Connection from "../componets/connection";
 import NavigationOptions from "../componets/mapgoal";
-import Map from "../componets/mapview";
 import RobotStatistics from "../componets/robotstatistics";
 import Teleoperation from "../componets/teleoperation";
 import VideoStreamView from "../componets/videostreamview";

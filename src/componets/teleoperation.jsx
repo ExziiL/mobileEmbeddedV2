@@ -95,7 +95,8 @@ class Teleoperation extends Component {
 		});
 		if (this.state.isRecording) {
 			var tempRecordedData = this.state.recordedData;
-			tempRecordedData.push(twist);
+
+			tempRecordedData.push(Object.assign({ twist, time: new Date().getTime() }));
 			this.setState({ recordedData: tempRecordedData });
 		}
 		cmd_vel.publish(twist);
@@ -120,20 +121,26 @@ class Teleoperation extends Component {
 		});
 		if (this.state.isRecording) {
 			var tempRecordedData = this.state.recordedData;
-			tempRecordedData.push(twist);
+			tempRecordedData.push(Object.assign({ twist, time: new Date().getTime() }));
 			this.setState({ recordedData: tempRecordedData });
 		}
 		cmd_vel.publish(twist);
 	}
 
 	record() {
-		this.setState({ isRecording: true, recordedData: [] });
+		this.setState({
+			isRecording: true,
+			recordedData: [],
+		});
 	}
 
 	stopRecord() {
-		this.setState({ isRecording: false });
 		if (this.state.recordedData.length > 0) {
-			// console.log(this.state.recordedData);
+			console.log(this.state.recordedData);
+			this.setState({
+				isRecording: false,
+				recordedData: [],
+			});
 		}
 	}
 	render() {
