@@ -55,7 +55,7 @@ class MapGoal extends Component {
 		this.addNewLocation = this.addNewLocation.bind(this);
 		this.state.ros = new window.ROSLIB.Ros();
 		this.driveRecordedPath = this.driveRecordedPath.bind(this);
-		console.log(this.state.ros);
+		// console.log(this.state.ros);
 	}
 
 	reconnect() {
@@ -217,15 +217,15 @@ class MapGoal extends Component {
 					},
 				};
 				if (this.state.goalid_list.includes(id) === false) {
-					// console.log(this.state.goalid_list.includes(id));
+					console.log(this.state.goalid_list.includes(id));
 					this.state.goal_list.push(newgoal);
 					this.state.goalid_list.push(id);
 					this.setState({ goal_list: this.state.goal_list });
 					this.updateStorage();
 				}
 			}
-			// console.log(this.state.goal_list);
-			// console.log(msg);
+			console.log(this.state.goal_list);
+			console.log(msg);
 			odom.unsubscribe();
 		});
 

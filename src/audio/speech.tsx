@@ -11,7 +11,6 @@ const Speech = () => {
 	const commands = [
 		{
 			command: "go to table *",
-			isFuzzyMatch: true,
 			callback: async (number: string) => {
 				handleGoToTable(number);
 			},
@@ -32,7 +31,7 @@ const Speech = () => {
 	];
 
 	const handleGoToTable = (spokenNumber: string) => {
-		const number = typeof spokenNumber != "number" ? wtn(spokenNumber) : spokenNumber;
+		const number = typeof spokenNumber == "string" ? wtn(spokenNumber) : spokenNumber;
 		console.log("Number:", number);
 		console.log("Spoken number:", spokenNumber);
 		if (number === undefined) {
