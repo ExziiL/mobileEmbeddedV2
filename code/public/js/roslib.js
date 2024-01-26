@@ -2492,21 +2492,21 @@
     var assign = require('object-assign');
     
     // Add core components
-    assign(ROSLIB, require('./core'));
+    assign(ROSLIB, require('./core.js'));
     
-    assign(ROSLIB, require('./actionlib'));
+    assign(ROSLIB, require('./actionlib.js'));
     
-    assign(ROSLIB, require('./math'));
+    assign(ROSLIB, require('./math.js'));
     
-    assign(ROSLIB, require('./tf'));
+    assign(ROSLIB, require('./tf.js'));
     
-    assign(ROSLIB, require('./urdf'));
+    assign(ROSLIB, require('./urdf.js'));
     
     module.exports = ROSLIB;
     
     },{"./actionlib":13,"./core":22,"./math":27,"./tf":30,"./urdf":42,"object-assign":3}],8:[function(require,module,exports){
     (function (global){(function (){
-    global.ROSLIB = require('./RosLib');
+    global.ROSLIB = require('./RosLib.js');
     }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
     },{"./RosLib":7}],9:[function(require,module,exports){
     /**
@@ -2514,8 +2514,8 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Topic = require('../core/Topic');
-    var Message = require('../core/Message');
+    var Topic = require('../core/Topic.js');
+    var Message = require('../core/Message.js');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
     
     /**
@@ -2660,8 +2660,8 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Topic = require('../core/Topic');
-    var Message = require('../core/Message');
+    var Topic = require('../core/Topic.js');
+    var Message = require('../core/Message.js');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
     
     /**
@@ -2748,7 +2748,7 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Message = require('../core/Message');
+    var Message = require('../core/Message.js');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
     
     /**
@@ -2838,8 +2838,8 @@
      * @author Laura Lindzey - lindzey@gmail.com
      */
     
-    var Topic = require('../core/Topic');
-    var Message = require('../core/Message');
+    var Topic = require('../core/Topic.js');
+    var Message = require('../core/Message.js');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
     
     /**
@@ -3063,14 +3063,14 @@
     
     module.exports = SimpleActionServer;
     },{"../core/Message":14,"../core/Topic":21,"eventemitter2":2}],13:[function(require,module,exports){
-    var Ros = require('../core/Ros');
-    var mixin = require('../mixin');
+    var Ros = require('../core/Ros.js');
+    var mixin = require('../mixin.js');
     
     var action = module.exports = {
-        ActionClient: require('./ActionClient'),
-        ActionListener: require('./ActionListener'),
-        Goal: require('./Goal'),
-        SimpleActionServer: require('./SimpleActionServer')
+        ActionClient: require('./ActionClient.js'),
+        ActionListener: require('./ActionListener.js'),
+        Goal: require('./Goal.js'),
+        SimpleActionServer: require('./SimpleActionServer.js')
     };
     
     mixin(Ros, ['ActionClient', 'SimpleActionServer'], action);
@@ -3100,8 +3100,8 @@
      * @author Brandon Alexander - baalexander@gmail.com
      */
     
-    var Service = require('./Service');
-    var ServiceRequest = require('./ServiceRequest');
+    var Service = require('./Service.js');
+    var ServiceRequest = require('./ServiceRequest.js');
     
     /**
      * A ROS parameter.
@@ -3185,11 +3185,11 @@
      */
     
     var WebSocket = require('ws');
-    var WorkerSocket = require('../util/workerSocket');
+    var WorkerSocket = require('../util/workerSocket.js');
     var socketAdapter = require('./SocketAdapter.js');
     
-    var Service = require('./Service');
-    var ServiceRequest = require('./ServiceRequest');
+    var Service = require('./Service.js');
+    var ServiceRequest = require('./ServiceRequest.js');
     
     var assign = require('object-assign');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
@@ -3886,8 +3886,8 @@
      * @author Brandon Alexander - baalexander@gmail.com
      */
     
-    var ServiceResponse = require('./ServiceResponse');
-    var ServiceRequest = require('./ServiceRequest');
+    var ServiceResponse = require('./ServiceResponse.js');
+    var ServiceRequest = require('./ServiceRequest.js');
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
     
     /**
@@ -4054,9 +4054,9 @@
      */
     'use strict';
     
-    var decompressPng = require('../util/decompressPng');
+    var decompressPng = require('../util/decompressPng.js');
     var CBOR = require('cbor-js');
-    var typedArrayTagger = require('../util/cborTypedArrayTags');
+    var typedArrayTagger = require('../util/cborTypedArrayTags.js');
     var BSON = null;
     if(typeof bson !== 'undefined'){
         BSON = bson().BSON;
@@ -4183,7 +4183,7 @@
      */
     
     var EventEmitter2 = require('eventemitter2').EventEmitter2;
-    var Message = require('./Message');
+    var Message = require('./Message.js');
     
     /**
      * Publish and/or subscribe to a topic in ROS.
@@ -4387,16 +4387,16 @@
     module.exports = Topic;
     
     },{"./Message":14,"eventemitter2":2}],22:[function(require,module,exports){
-    var mixin = require('../mixin');
+    var mixin = require('../mixin.js');
     
     var core = module.exports = {
-        Ros: require('./Ros'),
-        Topic: require('./Topic'),
-        Message: require('./Message'),
-        Param: require('./Param'),
-        Service: require('./Service'),
-        ServiceRequest: require('./ServiceRequest'),
-        ServiceResponse: require('./ServiceResponse')
+        Ros: require('./Ros.js'),
+        Topic: require('./Topic.js'),
+        Message: require('./Message.js'),
+        Param: require('./Param.js'),
+        Service: require('./Service.js'),
+        ServiceRequest: require('./ServiceRequest.js'),
+        ServiceResponse: require('./ServiceResponse.js')
     };
     
     mixin(core.Ros, ['Param', 'Service', 'Topic'], core);
@@ -4407,8 +4407,8 @@
      * @author David Gossow - dgossow@willowgarage.com
      */
     
-    var Vector3 = require('./Vector3');
-    var Quaternion = require('./Quaternion');
+    var Vector3 = require('./Vector3.js');
+    var Quaternion = require('./Quaternion.js');
     
     /**
      * A Pose in 3D space. Values are copied into this object.
@@ -4574,8 +4574,8 @@
      * @author David Gossow - dgossow@willowgarage.com
      */
     
-    var Vector3 = require('./Vector3');
-    var Quaternion = require('./Quaternion');
+    var Vector3 = require('./Vector3.js');
+    var Quaternion = require('./Quaternion.js');
     
     /**
      * A Transform in 3-space. Values are copied into this object.
@@ -4673,10 +4673,10 @@
     module.exports = Vector3;
     },{}],27:[function(require,module,exports){
     module.exports = {
-        Pose: require('./Pose'),
-        Quaternion: require('./Quaternion'),
-        Transform: require('./Transform'),
-        Vector3: require('./Vector3')
+        Pose: require('./Pose.js'),
+        Quaternion: require('./Quaternion.js'),
+        Transform: require('./Transform.js'),
+        Vector3: require('./Vector3.js')
     };
     
     },{"./Pose":23,"./Quaternion":24,"./Transform":25,"./Vector3":26}],28:[function(require,module,exports){
@@ -4704,14 +4704,14 @@
      * @author David Gossow - dgossow@willowgarage.com
      */
     
-    var ActionClient = require('../actionlib/ActionClient');
-    var Goal = require('../actionlib/Goal');
+    var ActionClient = require('../actionlib/ActionClient.js');
+    var Goal = require('../actionlib/Goal.js');
     
     var Service = require('../core/Service.js');
     var ServiceRequest = require('../core/ServiceRequest.js');
     var Topic = require('../core/Topic.js');
     
-    var Transform = require('../math/Transform');
+    var Transform = require('../math/Transform.js');
     
     /**
      * A TF Client that listens to TFs from tf2_web_republisher.
@@ -4926,11 +4926,11 @@
     module.exports = TFClient;
     
     },{"../actionlib/ActionClient":9,"../actionlib/Goal":11,"../core/Service.js":17,"../core/ServiceRequest.js":18,"../core/Topic.js":21,"../math/Transform":25}],30:[function(require,module,exports){
-    var Ros = require('../core/Ros');
-    var mixin = require('../mixin');
+    var Ros = require('../core/Ros.js');
+    var mixin = require('../mixin.js');
     
     var tf = module.exports = {
-        TFClient: require('./TFClient')
+        TFClient: require('./TFClient.js')
     };
     
     mixin(Ros, ['TFClient'], tf);
@@ -4941,8 +4941,8 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Vector3 = require('../math/Vector3');
-    var UrdfTypes = require('./UrdfTypes');
+    var Vector3 = require('../math/Vector3.js');
+    var UrdfTypes = require('./UrdfTypes.js');
     
     /**
      * A Box element in a URDF.
@@ -4996,7 +4996,7 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var UrdfTypes = require('./UrdfTypes');
+    var UrdfTypes = require('./UrdfTypes.js');
     
     /**
      * A Cylinder element in a URDF.
@@ -5018,9 +5018,9 @@
      * @author David V. Lu!!  davidvlu@gmail.com
      */
     
-    var Pose = require('../math/Pose');
-    var Vector3 = require('../math/Vector3');
-    var Quaternion = require('../math/Quaternion');
+    var Pose = require('../math/Pose.js');
+    var Vector3 = require('../math/Vector3.js');
+    var Quaternion = require('../math/Quaternion.js');
     
     /**
      * A Joint element in a URDF.
@@ -5112,7 +5112,7 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var UrdfVisual = require('./UrdfVisual');
+    var UrdfVisual = require('./UrdfVisual.js');
     
     /**
      * A Link element in a URDF.
@@ -5141,7 +5141,7 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var UrdfColor = require('./UrdfColor');
+    var UrdfColor = require('./UrdfColor.js');
     
     /**
      * A Material element in a URDF.
@@ -5191,8 +5191,8 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Vector3 = require('../math/Vector3');
-    var UrdfTypes = require('./UrdfTypes');
+    var Vector3 = require('../math/Vector3.js');
+    var UrdfTypes = require('./UrdfTypes.js');
     
     /**
      * A Mesh element in a URDF.
@@ -5228,9 +5228,9 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var UrdfMaterial = require('./UrdfMaterial');
-    var UrdfLink = require('./UrdfLink');
-    var UrdfJoint = require('./UrdfJoint');
+    var UrdfMaterial = require('./UrdfMaterial.js');
+    var UrdfLink = require('./UrdfLink.js');
+    var UrdfJoint = require('./UrdfJoint.js');
     var DOMParser = require('xmldom').DOMParser;
     
     // See https://developer.mozilla.org/docs/XPathResult#Constants
@@ -5325,7 +5325,7 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var UrdfTypes = require('./UrdfTypes');
+    var UrdfTypes = require('./UrdfTypes.js');
     
     /**
      * A Sphere element in a URDF.
@@ -5355,15 +5355,15 @@
      * @author Russell Toris - rctoris@wpi.edu
      */
     
-    var Pose = require('../math/Pose');
-    var Vector3 = require('../math/Vector3');
-    var Quaternion = require('../math/Quaternion');
+    var Pose = require('../math/Pose.js');
+    var Vector3 = require('../math/Vector3.js');
+    var Quaternion = require('../math/Quaternion.js');
     
-    var UrdfCylinder = require('./UrdfCylinder');
-    var UrdfBox = require('./UrdfBox');
-    var UrdfMaterial = require('./UrdfMaterial');
-    var UrdfMesh = require('./UrdfMesh');
-    var UrdfSphere = require('./UrdfSphere');
+    var UrdfCylinder = require('./UrdfCylinder.js');
+    var UrdfBox = require('./UrdfBox.js');
+    var UrdfMaterial = require('./UrdfMaterial.js');
+    var UrdfMesh = require('./UrdfMesh.js');
+    var UrdfSphere = require('./UrdfSphere.js');
     
     /**
      * A Visual element in a URDF.
@@ -5481,16 +5481,16 @@
     module.exports = UrdfVisual;
     },{"../math/Pose":23,"../math/Quaternion":24,"../math/Vector3":26,"./UrdfBox":31,"./UrdfCylinder":33,"./UrdfMaterial":36,"./UrdfMesh":37,"./UrdfSphere":39}],42:[function(require,module,exports){
     module.exports = require('object-assign')({
-        UrdfBox: require('./UrdfBox'),
-        UrdfColor: require('./UrdfColor'),
-        UrdfCylinder: require('./UrdfCylinder'),
-        UrdfLink: require('./UrdfLink'),
-        UrdfMaterial: require('./UrdfMaterial'),
-        UrdfMesh: require('./UrdfMesh'),
-        UrdfModel: require('./UrdfModel'),
-        UrdfSphere: require('./UrdfSphere'),
-        UrdfVisual: require('./UrdfVisual')
-    }, require('./UrdfTypes'));
+        UrdfBox: require('./UrdfBox.js'),
+        UrdfColor: require('./UrdfColor.js'),
+        UrdfCylinder: require('./UrdfCylinder.js'),
+        UrdfLink: require('./UrdfLink.js'),
+        UrdfMaterial: require('./UrdfMaterial.js'),
+        UrdfMesh: require('./UrdfMesh.js'),
+        UrdfModel: require('./UrdfModel.js'),
+        UrdfSphere: require('./UrdfSphere.js'),
+        UrdfVisual: require('./UrdfVisual.js')
+    }, require('./UrdfTypes.js'));
     
     },{"./UrdfBox":31,"./UrdfColor":32,"./UrdfCylinder":33,"./UrdfLink":35,"./UrdfMaterial":36,"./UrdfMesh":37,"./UrdfModel":38,"./UrdfSphere":39,"./UrdfTypes":40,"./UrdfVisual":41,"object-assign":3}],43:[function(require,module,exports){
     'use strict';
@@ -5685,7 +5685,7 @@
     
     },{}],48:[function(require,module,exports){
     var work = require('webworkify');
-    var workerSocketImpl = require('./workerSocketImpl');
+    var workerSocketImpl = require('./workerSocketImpl.js');
     
     function WorkerSocket(uri) {
       this.socket_ = work(workerSocketImpl);

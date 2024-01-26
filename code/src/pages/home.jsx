@@ -17,7 +17,6 @@ class Home extends Component {
 						<RobotStatistics className="" />
 					</div>
 					<div className="d-md-flex">
-						{/* <Map /> */}
 						<NavigationOptions />
 					</div>
 				</div>
